@@ -1,0 +1,44 @@
+class Solution {
+    public  String fractionToDecimal(int num, int den) {
+        if(num == 0){
+            return "0"; 
+        }
+        if(den == 0){
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        if((num < 0) ^ (den < 0)){
+            result.append("-");
+        }
+        num = Math.abs(num);
+        den = Math.abs(den);
+        
+        long q = num / den;
+        long r = num % den *10;
+
+        result.append(String.valueOf(q));
+        if(r == 0){
+            return result.toString();
+        }
+        else{
+            result.append(".");
+        }
+        Map<Long,Integer> m = new HashMap<>();
+        while(r !=0){
+            if(m.containsKey(r)){
+                int index = m.get(r);
+                String p1 = result.substring(0,index);
+                String p2 = "("+result.substring(index,result.length())+")";
+                
+                return p1 + p2;
+            }
+            
+                m.put(r, result.length());
+                q = r/den;
+                result.append(String.valueOf(q));
+                r = (r % den) * 10;
+        }
+            return result.toString();
+        }
+    
+}
