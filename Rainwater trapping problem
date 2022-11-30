@@ -1,0 +1,24 @@
+class Solution {
+    public int trap(int[] height) {
+        int maxR[] = new int[height.length];
+        int maxL[] = new int[height.length];
+        // int ans[] = new int[height.length];
+        int r=0;
+
+        for(int i=1; i<height.length; i++){
+            maxL[i] = Math.max(height[i-1] , maxL[i-1]);
+        }
+        for(int i=(height.length)-2;i>=0;i--){
+            maxR[i] = Math.max(height[i+1] , maxR[i+1]);
+        }
+        for(int i=1; i<(height.length)-1; i++){
+            int ans = Math.min(maxL[i], maxR[i]) - height[i];
+        if(ans>0){
+            System.out.println("r: "+r);
+        r = r + ans;
+  
+        }      
+    }
+        return r;
+    }
+}
