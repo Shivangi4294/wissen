@@ -1,0 +1,24 @@
+class Solution {
+    public int strStr(String haystack, String needle) {
+        char hay[] = haystack.toCharArray();
+        char n[] = needle.toCharArray();
+        int h_len = hay.length;
+        int n_len = n.length;
+        int index =-1;
+
+        for(int i=0; i< h_len-n_len+1;i++){
+            for(int j=0; j<n_len; j++){
+                if(hay[i+j] == n[j]){
+                    if(j == n_len-1){
+                        return i;
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+}   
+
