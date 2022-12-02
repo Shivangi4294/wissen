@@ -1,0 +1,34 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        char c1[] = s.toCharArray();
+        char c2[] = t.toCharArray();
+        HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+        for(int i=0; i<c1.length; i++){
+            if(hmap.containsKey(c1[i])){
+                hmap.put(c1[i],hmap.get(c1[i])+1);
+            }
+            else{
+                hmap.put(c1[i],1);
+            }
+        }
+        // for(Character key:hmap.keySet()){
+        //     System.out.println(key+" : "+hmap.get(key)); 
+        // }
+        for(int i=0 ; i<c2.length; i++){
+            if(hmap.containsKey(c2[i]) && hmap.get(c2[i])>0){
+                hmap.put(c2[i],hmap.get(c2[i])-1);
+            }
+            else{
+                System.out.print("else");
+                return false;
+            }
+        }
+        for(int i=0 ; i<c1.length; i++){
+                if(hmap.get(c1[i])>0){
+                    System.out.print("last");
+                    return false;
+                }
+        }
+        return true;
+    }
+}
