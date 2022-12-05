@@ -1,0 +1,15 @@
+class Solution {
+    public boolean isUgly(int n) {
+        int factor[] = {2,3,5};
+        if(n<=0){
+            return false;
+        }
+        for(int f : factor){
+            while(n % f == 0 ){
+                n= n/f;
+            }
+            // return true;
+        }
+        return (n==1);
+    }
+}
