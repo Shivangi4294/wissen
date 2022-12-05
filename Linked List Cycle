@@ -1,0 +1,16 @@
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode dummy = head;
+        HashSet<ListNode> set = new HashSet<ListNode>();
+        while(dummy != null){
+            if(set.contains(dummy)){
+                return true;
+            }
+            else{
+                set.add(dummy);
+                dummy = dummy.next;
+            }
+        }
+        return false;
+    }
+}
