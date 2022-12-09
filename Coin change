@@ -1,0 +1,23 @@
+HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+    public int coinChange(int[] coins, int amount) {
+        if(amount == 0) return 0;
+        if(amount < 0) return -1;
+        if(map.containsKey(amount)){
+            return map.get(amount);
+        }    
+        int min = Integer.MAX_VALUE;
+        int numberOfCoins = Integer.MIN_VALUE;
+        for(int coin : coins){
+            numberOfCoins = 1 + coinChange(coins, amount-coin);
+            if(numberOfCoins<min && numberOfCoins > 0){
+                min = numberOfCoins;
+            }
+        }
+        if(min > 0 && min < Integer.MAX_VALUE){
+            map.put(amount,min);
+        }else{
+            min = -1;
+            map.put(amount,min);
+        }
+        return min;
+    }
