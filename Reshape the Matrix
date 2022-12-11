@@ -1,0 +1,20 @@
+class Solution {
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+        int[][] result = new int[r][c];
+        if(mat.length==0 || r*c != mat.length * mat[0].length){
+            return mat;
+        }
+        int rows=0, columns=0;
+        for(int i=0; i<mat.length; i++){
+            for(int j=0; j<mat[0].length;j++){
+                result[rows][columns] = mat[i][j];
+                columns++;
+                if(columns ==c){
+                    rows++;
+                    columns = 0;
+                }
+            }
+        } 
+    return result;
+    }
+}
