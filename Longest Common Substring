@@ -9,13 +9,13 @@ public class Main {
         int max=0;
         int maxIndex=0;
         if(s.isEmpty()){
-            result[0] =maxIndex;
-            result[1] = max;
+            result[0] =-1;
+            result[1] = -1;
             return result;
         }
         if(s.isBlank()){
-            result[0] =maxIndex;
-            result[1] = 1;
+            result[0] =-1;
+            result[1] = -1;
             return result;
         }
         if(s.length()==1){
