@@ -1,0 +1,55 @@
+package org.example;
+
+import java.util.Arrays;
+
+public class Main {
+    public static int[] common(String s){
+
+        int result[]=new int[2];
+        int max=0;
+        int maxIndex=0;
+        if(s.isEmpty()){
+            result[0] =maxIndex;
+            result[1] = max;
+            return result;
+        }
+        if(s.isBlank()){
+            result[0] =maxIndex;
+            result[1] = 1;
+            return result;
+        }
+        if(s.length()==1){
+            result[0] =maxIndex;
+            result[1] = 1;
+            return result;
+        }
+        for(int i=0; i<s.length()-1;i++){
+            result[0]=i;
+            int count=1;
+            for(int j=i+1;j<s.length();j++){
+                if(s.charAt(i) == s.charAt(j)){
+                        count++;
+                }
+                else{
+                    i=j-1;
+                    break;
+                }
+            }
+            if(count > max) {
+                max = count;
+                maxIndex=result[0];
+            }
+        }
+        result[0] =maxIndex;
+        result[1] = max;
+        return result;
+    }
+    public static void main(String[] args) {
+        String s=" ";
+        int r[] = common(s);
+        for(int i=0; i<r.length;i++) {
+            System.out.print(r[i]+" ");
+        }
+
+    }
+}
