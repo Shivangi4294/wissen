@@ -1,0 +1,53 @@
+public final class  Student{
+    private final String name;
+    private final List<Department> departments;
+
+public Student(String name, List<Department> departments){
+    this.name = name;
+    List<Department> copyDepartments = new ArrayList<>();
+    for(Department department : departments){
+        copyDepartments.add(department);
+    }
+    this.departments = copyDepartments;
+}
+
+public String getName(){
+    return name;
+}
+
+public List<Department> getDepartments(){
+    return departments.copy()
+}
+public static void main(String[] args){
+    
+    Department department = new Department();
+    department.setName("Medical);
+    List<Department> departments = new ArrayList<>();
+    departments.add(department);
+    department.setName("Non-Medical");
+    Student student = new Student("Devika", departments);
+    departments.add("Commerce");
+    
+    List<Department> newDepartments = student.getDepartments();
+    newDepartments.add("Humanities");
+}
+public class Department{
+
+    private String name;
+
+public String getName(){
+    return name;
+}
+    public void setName(String name){
+    this.name = name;
+}
+}
+
+
+
+dont use same referencing, use a copy
+and don't send the same referencing
+
+deep copy in constructor
+
+class final for Liskov principle
