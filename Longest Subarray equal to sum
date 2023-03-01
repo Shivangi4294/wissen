@@ -1,0 +1,51 @@
+package org.example;
+
+public class Main {
+    public static int[] longestSubArray(int array[], int k){
+        int result[] = new int[2];
+        int length = array.length;
+        int maxLength = Integer.MIN_VALUE;
+        int sum=0;
+        int i=0,j=0;
+
+        while(j<length){
+            sum += array[j];
+            if(sum < k){
+                j++;
+            }
+            else if(sum == k){
+//                maxLength = Math.max(maxLength,j-i+1);
+                if(j-i+1>maxLength){
+                    result[0]=i;
+                    result[1] = j;
+                    maxLength = j-i+1;
+                    j++;
+                }
+
+            }
+            else if(sum>k){
+                while(sum > k){
+                    sum -=array[i];
+                    i++;
+                }
+                if(sum == k){
+                    maxLength = Math.max(maxLength,j-i+1);
+                }
+                j++;
+
+            }
+
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+
+        int array[] ={1,2,3,4,5,0,0,0,6,7,8,9,10};
+        int sum = 15;
+        int result[] = longestSubArray(array,sum);
+        for(int r: result){
+            System.out.print(r +" ");
+        }
+
+    }
+}
