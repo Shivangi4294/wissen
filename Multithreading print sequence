@@ -1,0 +1,46 @@
+public class PrintSequence implements Runnable {
+    int remainder;
+    static int counter = 1;
+    int max = 15;
+    int numThreads = 3;
+    static Object lock = new Object();
+    public PrintSequence(int remainder){
+        this.remainder = remainder;
+    }
+    @Override
+    public void run() {
+        while(counter < max){
+            synchronized (lock){
+                while (counter % numThreads != remainder){
+                    try{
+                        lock.wait();
+                    }
+                    catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(Thread.currentThread().getName()+" "+counter);
+                counter++;
+                lock.notifyAll();
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        PrintSequence printSequence1 = new PrintSequence(1);
+        PrintSequence printSequence2 = new PrintSequence(2);
+        PrintSequence printSequence3 = new PrintSequence(0);
+
+        Thread thread1 = new Thread(printSequence1);
+        Thread thread2 = new Thread(printSequence2);
+        Thread thread3 = new Thread(printSequence3);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+    }
+}
