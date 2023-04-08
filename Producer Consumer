@@ -1,0 +1,96 @@
+public  class Company {
+    LinkedList<Integer> list = new LinkedList<>();
+    int capacity = 1 ;
+
+    public void produceItem() throws InterruptedException{
+        int value =0;
+        while(true){
+            synchronized(this){
+                while(list.size() == capacity){
+                    wait();
+                }
+                System.out.println("Producer produced:"+value);
+                list.add(value++);
+                notify();
+                Thread.sleep(1000);
+            }
+        }
+    }
+
+    public void consumeItem() throws InterruptedException{
+        while(true){
+            synchronized(this){
+                while(list.size() == 0){
+                    wait();
+                }
+                int value = list.removeFirst();
+                System.out.println("Consumer consumed :" +value);
+                notify();
+                Thread.sleep(1000);
+            }
+        }
+    }
+}
+--------------------------------------------------------------------------------------
+public class Producer extends Thread {
+    Company company;
+    Producer (Company company){
+        this.company = company;
+    }    
+    public void run(){
+        while(true){
+
+            try {
+                this.company.produceItem();
+            } 
+            catch (Exception e1) {
+                e1.printStackTrace();
+                System.out.print("Error occured in pp");
+            }
+            try{
+            Thread.sleep(1000);}
+            catch(Exception e){
+                System.out.print("Producer Error ");
+            }
+        }
+    }
+}
+-----------------------------------------------------------------------
+public class Consumer extends Thread {
+    Company company;
+    Consumer(Company company){
+        this.company = company;
+    }
+    public void run(){
+        
+        while(true){
+            try {
+                this.company.consumeItem();
+            } 
+            catch (Exception e1) {
+                e1.printStackTrace();
+                System.out.print("Error occured in cc");
+            }
+
+            try{
+                Thread.sleep(1000);
+            }
+            catch(Exception e){
+                System.out.println("Consumer Error ");
+            }
+            
+        }
+    }
+    
+}
+----------------------------------------------------------------------
+public class Main {
+    public static void main(String[] args) {
+        Company company = new Company();
+        Producer producer = new Producer(company);
+        Consumer consumer = new Consumer(company);
+        producer.start();
+        consumer.start();
+        
+    }
+}
