@@ -1,0 +1,42 @@
+public class Person {
+    private String name;
+    private int id;
+
+    public Person(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object object){
+        if(object == this){
+            return true;
+        }
+        if(object == null || object.getClass() != this.getClass()){
+            return false;
+        }
+        Person person = (Person) object;
+        return person.name.equals(name) && person.id==id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
+    }
+}
+---------------------------------------------------------------------------------
+public class Main {
+    public static void main(String[] args) {
+
+        Person person1 = new Person("Akash",1);
+        Person person2 = new Person("Akash",1);
+        Person person3 = new Person("Shivangi",2);
+        Person person4 = new Person("Akash",3);
+
+        System.out.println(person1.equals(person2));
+        System.out.println(person1.equals(person3));
+        System.out.println(person1.equals(person4));
+
+
+    }
+}
