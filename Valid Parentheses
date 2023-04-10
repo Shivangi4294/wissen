@@ -1,37 +1,37 @@
-class Solution {
-    public boolean match(char s, char pop){
-        if(pop == '(' && s==')'){
+
+public class Main {
+    public static boolean  match(char str, char pop){
+        if (pop =='(' && str ==')'){
             return true;
         }
-        if(pop == '[' && s==']'){
+        if (pop =='{' && str =='}'){
             return true;
         }
-        if(pop == '{' && s=='}'){
+        if (pop =='[' && str ==']'){
             return true;
         }
-        else{
-            return false;
+    else{
+        return false;
         }
     }
-    public boolean isValid(String s) {
-        Stack<Character> st = new Stack<>();
-        HashSet<Character> h = new HashSet<>();
-        h.add('(');
-        h.add('{');
-        h.add('[');
+    public static boolean isValid(String s){
+        Stack<Character> stack = new Stack<>();
+        HashSet<Character> set = new HashSet<>();
+        set.add('(');
+        set.add('[');
+        set.add('{');
         for(int i=0; i<s.length();i++){
-            if(h.contains(s.charAt(i))){
-                st.push(s.charAt(i));
+            if(set.contains(s.charAt(i))){
+                stack.push(s.charAt(i));
             }
             else{
-            // System.out.println("else");
-            // System.out.println("stack "+st);
-                if(!st.isEmpty()){
-                    System.out.println();
-                    char pop = st.pop();
-                    System.out.println("pop: "+pop);
-                    boolean match = match(s.charAt(i),pop);
-                    if(!match){
+                if(Character.isLetterOrDigit(s.charAt(i))){
+                    i++;
+                }
+                else if(!stack.isEmpty()){
+                    char pop=stack.pop();
+                    boolean ismatched = match(s.charAt(i),pop);
+                    if(!ismatched){
                         return false;
                     }
                 }
@@ -40,9 +40,13 @@ class Solution {
                 }
             }
         }
-        if(!st.isEmpty()){
+        if(!stack.isEmpty()){
             return false;
         }
         return true;
+    }
+    public static void main(String[] args) {
+        boolean result = isValid("{(ab)}");
+        System.out.print(result);
     }
 }
